@@ -105,4 +105,20 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 启用和禁用员工
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("status/{status}")
+    @ApiOperation("启用禁止员工")
+    public Result startOrStop(@PathVariable Integer status,Long id)
+    {
+        //如果是josn格式传输过来的话，那么就要使用@RequestBody注解来进行映射，如果是地址栏传输过来的话，那么要使用@PathVariable来进行映射，如果都不是的话，那么后端直接进行接受即可
+        //这里注意了，等下的sql修改语句可以进行一个多数值的修改，这样子后续有关于员工的修改操作，都可以调用这个方法了
+        employeeService.starOrStop(status,id);
+        return Result.success();
+    }
+
 }
