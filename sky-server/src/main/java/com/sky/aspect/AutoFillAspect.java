@@ -56,19 +56,16 @@ public class AutoFillAspect {
             //为4个公共字段赋值
             try{
                 //这些其实都可以看成是在定义一个方法，将方法中需要用到的参数属性给交代清楚，然后后续再惊醒调用
-
                 Method setCreateTime=entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME,LocalDateTime.class);
                 //用这个拉屎举个例子就是，我们需要更改CreateTime的值，所以我们调用set函数，器赋值的类型为LocalDateTime……
                 Method setCreateUser=entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER,Long.class);
                 Method setUpdateTime=entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME,LocalDateTime.class);
                 Method setUpdateUser=entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER,Long.class);
-
                 //通过反射为对象属性赋值
                 setCreateTime.invoke(entity,now);
                 setCreateUser.invoke(entity,currentId);
                 setUpdateTime.invoke(entity,now);
                 setUpdateUser.invoke(entity,currentId);
-
             }catch (Exception e)
             {
                 e.printStackTrace();
@@ -80,18 +77,13 @@ public class AutoFillAspect {
             try{
                 Method setUpdateTime=entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME,LocalDateTime.class);
                 Method setUpdateUser=entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER,Long.class);
-
                 //通过反射为对象属性赋值
                 setUpdateTime.invoke(entity,now);
                 setUpdateUser.invoke(entity,currentId);
-
             }catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
-
-
     }
-
 }
