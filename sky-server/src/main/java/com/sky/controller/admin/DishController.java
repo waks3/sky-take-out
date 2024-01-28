@@ -8,8 +8,11 @@ import com.sky.service.DishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 菜品管理
@@ -48,6 +51,20 @@ public class DishController {
         log.info("菜品分页查询：{}",dishPageQueryDTO);
         PageResult pageResult= dishService.pageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 菜品批量删除
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("菜品批量删除")
+    public Result delete(@RequestParam List<Long> ids)
+    {//RequestParam注解是为了调用SpringMvc自动帮忙解析，因为这种在地址栏上传输的数据也可以用字符串来接收，只不过那种需要我们自己来进行符号的识别
+        log.info("菜品批量删除:{}",ids);
+        dishService.deleteBatch(ids);
+        return Result.success();
     }
 
 }
