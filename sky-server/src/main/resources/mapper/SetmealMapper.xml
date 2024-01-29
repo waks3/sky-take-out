@@ -9,4 +9,12 @@
         values
             ( #{categoryId},  #{name},  #{price},  #{description}, #{image}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser},  #{status})
     </insert>
+    <select id="pageQuery" resultType="com.sky.vo.SetmealVO">
+        select a.*,b.name as categoryName from setmeal a join category b on b.id = a.category_id
+        <where>
+            <if test="name != null">and a.name like concat('%',#{name},'%')</if>
+            <if test="categoryId != null">and a.category_id=#{categoryId}</if>
+            <if test="status != null">and a.tatus=#{status}</if>
+        </where>
+    </select>
 </mapper>
