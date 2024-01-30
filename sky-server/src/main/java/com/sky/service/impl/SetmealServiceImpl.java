@@ -7,6 +7,7 @@ import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
@@ -90,6 +91,48 @@ public class SetmealServiceImpl implements SetmealService {
             //删除相应的套餐菜品关系表
             setmealDishMapper.deleteBySetmealId(id);
         }
+    }
 
+
+    /**
+     * 根据ID查询套餐
+     * @param id
+     * @return
+     */
+    public SetmealVO getByIdWithDish(Long id)
+    {
+        Setmeal setmeal=setmealMapper.getById(id);
+        List<SetmealDish>list=setmealDishMapper.getBySetmealId(id);
+
+
+        SetmealVO setmealVO=new SetmealVO();
+        BeanUtils.copyProperties(setmeal,setmealVO);
+        setmealVO.setSetmealDishes(list);
+        return setmealVO;
+    }
+
+    /**
+     * 修改套餐
+     * @param setmealDTO
+     */
+    public void updateWithDish(SetmealDTO setmealDTO)
+    {
+        Setmeal setmeal=new Setmeal();
+        BeanUtils.copyProperties(setmealDTO,setmeal);
+        //先将套餐表中的数据进行修改
+        setmealMapper.update(setmeal);
+
+        //删除原先套餐菜品表中相应的数据
+        setmealDishMapper.deleteBySetmealId(setmeal.getId());
+
+        List<SetmealDish>list=setmealDTO.getSetmealDishes();
+        if (list!=null && list.size()>0)
+        {
+            list.forEach(setmealDish->{
+                setmealDish.setSetmealId(setmeal.getId());
+            });
+            //重新插入前端传输过来的数据
+            setmealDishMapper.insertBatch(list);
+        }
     }
 }
