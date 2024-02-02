@@ -64,5 +64,5 @@ public interface SetmealMapper {
      * @param id
      */
     @Update("update setmeal set status=#{status} where id=#{id}")
-    void updateStatusById(Long status, Long id);
+    void updateStatusById(Integer status, Long id);
 }
