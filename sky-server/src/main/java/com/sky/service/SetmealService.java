@@ -45,5 +45,5 @@ public interface SetmealService {
      * @param status
      * @param id
      */
-    void startOrStop(Long status, Long id);
+    void startOrStop(Integer status, Long id);
 }

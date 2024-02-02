@@ -105,7 +105,6 @@ public class DishController {
     @ApiOperation("根据分类id查询菜品")
     public Result getBycategoryId(Long categoryId)
     {
-        System.out.println(123123);
         List<Dish> dishs=dishService.getBycategoryId(categoryId);
         return Result.success(dishs);
     }
