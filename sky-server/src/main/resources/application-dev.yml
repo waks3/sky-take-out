@@ -11,6 +11,9 @@ sky:
     access-key-id: LTAI5tGdN8CEbq4S7t75a3yS
     access-key-secret: CTae8sGH3bRmkq9ZYNzTDSwo9cI0wS
     bucket-name: waks-web-tlias
+  wechat:
+    appid: wx343a59e5b522aad7
+    secret: 4e688a33b29135b1b1de00fa6e5b2ad7
   redis:
     host: localhost
     port: 6379
