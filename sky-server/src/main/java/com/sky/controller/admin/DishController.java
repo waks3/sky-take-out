@@ -108,4 +108,6 @@ public class DishController {
         List<Dish> dishs=dishService.getBycategoryId(categoryId);
         return Result.success(dishs);
     }
+
+    //菜品的起售和停用没做
 }
