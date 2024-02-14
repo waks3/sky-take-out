@@ -121,6 +121,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             //如果没有多条数据，那么直接将其删除
             shoppingCartMapper.subByDishIdOrSetmealId(shoppingCart);
         }
-
     }
 }
