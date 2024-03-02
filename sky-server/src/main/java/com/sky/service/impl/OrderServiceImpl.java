@@ -517,7 +517,7 @@ public class OrderServiceImpl implements OrderService {
     public void complete(Long id){
         //根据id查询订单
         Orders ordersDB=orderMapper.getById(id);
-        //判断订单是否存在，并且状态是否为3
+        //判断订单是否存在，并且状态是否为4
         if(!ordersDB.getStatus().equals(Orders.DELIVERY_IN_PROGRESS)||ordersDB== null){
             throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
         }
@@ -528,5 +528,27 @@ public class OrderServiceImpl implements OrderService {
         orders.setStatus(Orders.COMPLETED);
         orders.setDeliveryTime(LocalDateTime.now());
         orderMapper.update(orders);
+    }
+
+
+    /**
+     * 客户催单
+     * @param id
+     */
+    public void reminder(Long id){
+        Orders ordersDB=orderMapper.getById(id);
+        if(!ordersDB.getStatus().equals(Orders.TO_BE_CONFIRMED)||ordersDB== null){
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        //通过WebSocket向客户端浏览器推送信息 type orderId content
+        Map map=new HashMap();
+        map.put("type",2);
+        map.put("orderId",id);
+        map.put("content","订单号："+ordersDB.getNumber());
+        String json= JSON.toJSONString(map);
+
+        //通过webSocket向客户端浏览器推送消息
+        webSocketServer.sendToAllClient(json);
     }
 }
