@@ -19,8 +19,8 @@ sky:
     privateKeyFilePath: D:\pay\apiclient_key.pem
     apiV3Key: CZBK51236435wxpay435434323FFDuv3
     weChatPayCertFilePath: D:\pay\wechatpay_166D96F876F45C7D07CE98952A96EC980368ACFC.pem
-    notifyUrl:  http://7f2b633a.r11.cpolar.top/notify/paySuccess
-    refundNotifyUrl:  http://7f2b633a.r11.cpolar.top/notify/refundSuccess
+    notifyUrl:  http://6c3a17ce.r25.cpolar.top/notify/paySuccess
+    refundNotifyUrl:  http://6c3a17ce.r25.cpolar.top/notify/refundSuccess
   redis:
     host: localhost
     port: 6379
